@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
+import static com.lb.simpleWarehouse.api.QueryController.*;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.http.HttpStatus.OK;
@@ -18,14 +20,23 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("api/v1")
 public class ApiDefinitionController {
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<BasicResponse> base() {
+    @GetMapping(value = "api/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpEntity<BasicResponse> baseV1() {
         BasicResponse apiDefinition = new BasicResponse();
         apiDefinition.add(linkTo(methodOn(ClassicRestController.class)
-                .dataSource("dataSource", LocalDate.now(), LocalDate.now())).withSelfRel());
+                .dataSourceClicks("dataSource", LocalDate.now(), LocalDate.now())).withSelfRel());
         apiDefinition.addEndpointDescription("GET: Retrieve totalClicks for a given dataSource in given timeRange");
         apiDefinition.add(linkTo(methodOn(ClassicRestController.class)
-                .dataSource("dataSource", LocalDate.now(), LocalDate.now())).withSelfRel());
+                .dataSourceImpressions("dataSource", LocalDate.now(), LocalDate.now())).withSelfRel());
+        apiDefinition.addEndpointDescription("GET: Retrieve totalClicks for a given dataSource in given timeRange");
+        return new ResponseEntity<>(apiDefinition, OK);
+    }
+
+    @GetMapping(value = "api/v2", produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpEntity<BasicResponse> baseV2() {
+        BasicResponse apiDefinition = new BasicResponse();
+        apiDefinition.add(linkTo(methodOn(QueryController.class)
+                .campaignClicks(METRICS, DIMENSIONS, FILTERS)).withSelfRel());
         apiDefinition.addEndpointDescription("GET: Retrieve totalClicks for a given dataSource in given timeRange");
         return new ResponseEntity<>(apiDefinition, OK);
     }
