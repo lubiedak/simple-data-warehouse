@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static com.lb.simpleWarehouse.api.QueryController.*;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -17,7 +17,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("api/v1")
 public class ApiDefinitionController {
 
     @GetMapping(value = "api/v1", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,8 +34,12 @@ public class ApiDefinitionController {
     @GetMapping(value = "api/v2", produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<BasicResponse> baseV2() {
         BasicResponse apiDefinition = new BasicResponse();
+        var filtersMap = FILTERS_KEYS.stream().map(v -> v+"="+v).collect(Collectors.joining(","));
         apiDefinition.add(linkTo(methodOn(QueryController.class)
-                .campaignClicks(METRICS, DIMENSIONS, FILTERS)).withSelfRel());
+                .campaignClicks(
+                        String.join(",", METRICS),
+                        String.join(",", DIMENSIONS),
+                        filtersMap)).withSelfRel());
         apiDefinition.addEndpointDescription("GET: Retrieve totalClicks for a given dataSource in given timeRange");
         return new ResponseEntity<>(apiDefinition, OK);
     }
