@@ -1,6 +1,6 @@
 package com.lb.simpleWarehouse.api;
 
-import com.lb.simpleWarehouse.api.model.TotalClicks;
+import com.lb.simpleWarehouse.model.TotalClicks;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;

@@ -1,6 +1,6 @@
 package com.lb.simpleWarehouse.api;
 
-import com.lb.simpleWarehouse.api.model.TotalClicks;
+import com.lb.simpleWarehouse.model.TotalClicks;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

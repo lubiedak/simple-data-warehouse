@@ -1,0 +1,15 @@
+CREATE TABLE CAMPAIGNS
+(
+    id          UUID,
+    name        TEXT,
+    datasource  TEXT,
+    daily       TIMESTAMP,
+    clicks      INTEGER,
+    impressions INTEGER
+);
+
+ALTER TABLE CAMPAIGNS
+    ADD CONSTRAINT pk_campaigns_id PRIMARY KEY (id);
+
+CREATE INDEX idx_campaign_name ON CAMPAIGNS(name) INCLUDE(clicks, impressions);
+CREATE INDEX idx_datasource ON CAMPAIGNS(datasource) INCLUDE(clicks, impressions);

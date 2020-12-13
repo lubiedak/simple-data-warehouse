@@ -1,4 +1,4 @@
-package com.lb.simpleWarehouse.api.model;
+package com.lb.simpleWarehouse.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

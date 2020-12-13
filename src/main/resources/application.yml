@@ -6,3 +6,15 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui-custom.html
+
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1/campaigns?createDatabaseIfNotExist=true
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
