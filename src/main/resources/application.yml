@@ -18,3 +18,12 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  flyway:
+    enabled: true
+
+flyway:
+  user: postgres
+  password: postgres
+  schemas: campaigns
+  url: jdbc:postgresql://127.0.0.1/campaigns
+  locations: filesystem:resources/db/migration

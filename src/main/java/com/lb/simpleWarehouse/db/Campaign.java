@@ -1,6 +1,11 @@
 package com.lb.simpleWarehouse.db;
 
+import com.lb.simpleWarehouse.loader.CampaignInput;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +15,10 @@ import java.time.LocalDate;
 
 @Data
 @Entity
+@Builder
 @Table(name = "CAMPAIGNS")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Campaign {
     @Id
     @GeneratedValue
@@ -25,4 +33,14 @@ public class Campaign {
     private int clicks;
     @Column
     private int impressions;
+
+    public static Campaign from(CampaignInput input){
+        return builder()
+                .name(input.getCampaign())
+                .datasource(input.getDatasource())
+                .daily(input.getDaily())
+                .clicks(input.getClicks())
+                .impressions(input.getImpressions())
+                .build();
+    }
 }

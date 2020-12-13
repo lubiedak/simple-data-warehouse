@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SimpleWarehouseApplication {
+
 	public static void main(String[] args) {
 		SpringApplication.run(SimpleWarehouseApplication.class, args);
 	}
@@ -19,4 +20,6 @@ public class SimpleWarehouseApplication {
 		mapper.registerModule(new JavaTimeModule());
 		return mapper;
 	}
+
+
 }

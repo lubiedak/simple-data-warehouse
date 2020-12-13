@@ -1,8 +1,8 @@
 CREATE TABLE CAMPAIGNS
 (
     id          UUID,
-    name        TEXT,
     datasource  TEXT,
+    name        TEXT,
     daily       TIMESTAMP,
     clicks      INTEGER,
     impressions INTEGER
