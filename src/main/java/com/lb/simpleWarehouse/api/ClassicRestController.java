@@ -3,6 +3,7 @@ package com.lb.simpleWarehouse.api;
 import com.lb.simpleWarehouse.db.Campaign;
 import com.lb.simpleWarehouse.db.CampaignsRepository;
 import com.lb.simpleWarehouse.model.TotalClicks;
+import com.lb.simpleWarehouse.service.CampaignsQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -25,46 +26,52 @@ public class ClassicRestController {
 
     private final CampaignsRepository repository;
 
+    private final CampaignsQueryService queryService;
+
     @GetMapping(value = "/datasource/{dataSource}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Tag(name = SWAGGER_TAG_CLASSIC_API)
-    @Operation(summary = "List available roles for specified subscription")
-    public List<Campaign> dataSource(@PathVariable(value = "dataSource") String dataSource) {
-        return repository.findAllByName(dataSource);
+    @Operation(summary = "List all campaigns from given datasource")
+    public List<Campaign> findAllByDataSource(@PathVariable(value = "dataSource") String dataSource,
+                                              @RequestParam(value = "start", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate start,
+                                              @RequestParam(value = "end", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate end) {
+        return repository.findAllByDatasource(dataSource);
     }
 
-    @GetMapping(value = "/datasource/{dataSource}/clicks", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/campaign/{campaignName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Tag(name = SWAGGER_TAG_CLASSIC_API)
-    @Operation(summary = "List available roles for specified subscription")
-    public TotalClicks dataSourceClicks(@PathVariable(value = "dataSource") String dataSource,
-                                @RequestParam(value = "start") @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate start,
-                                @RequestParam(value = "end") @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate end) {
-        return new TotalClicks(dataSource, start, end, 2);
+    @Operation(summary = "List all results for given campaign")
+    public Object findAllByCampaignName(@PathVariable(value = "campaignName") String campaignName,
+                                                @RequestParam(value = "start", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate start,
+                                                @RequestParam(value = "end", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate end) {
+        return repository.findAllByName(campaignName);
     }
 
-    @GetMapping(value = "/datasource/{dataSource}/impressions", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/campaign/{campaignName}/sum", produces = MediaType.APPLICATION_JSON_VALUE)
     @Tag(name = SWAGGER_TAG_CLASSIC_API)
-    @Operation(summary = "List available roles for specified subscription")
-    public TotalClicks dataSourceImpressions(@PathVariable(value = "dataSource") String dataSource,
-                                        @RequestParam(value = "start") @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate start,
-                                        @RequestParam(value = "end") @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate end) {
-        return new TotalClicks(dataSource, start, end, 2);
+    @Operation(summary = "List all campaigns from given datasource")
+    public Object sumOfImpressionsPerDataSource(@PathVariable(value = "campaignName") String campaign,
+                                           @RequestParam(value = "start", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate start,
+                                           @RequestParam(value = "end", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate end) {
+        return repository.sumOfClicksAndImpressionsForCampaignPerDatasource(campaign);
     }
 
-    @GetMapping(value = "/campaign/{campaign}/clicks", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/datasource/{dataSource}/sum", produces = MediaType.APPLICATION_JSON_VALUE)
     @Tag(name = SWAGGER_TAG_CLASSIC_API)
-    @Operation(summary = "List available roles for specified subscription")
-    public TotalClicks campaignClicks(@PathVariable(value = "campaign") String campaign,
-                                  @RequestParam(value = "start") @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate start,
-                                  @RequestParam(value = "end") @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate end) {
-        return new TotalClicks(campaign, start, end, 2);
+    @Operation(summary = "List all campaigns from given datasource")
+    public Object sumOfClicksPerCampaign(@PathVariable(value = "dataSource") String dataSource,
+                               @RequestParam(value = "start", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate start,
+                               @RequestParam(value = "end", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate end) {
+        return repository.sumOfClicksAndImpressionsForDataSourcePerCampaign(dataSource);
     }
 
-    @GetMapping(value = "/campaign/{campaign}/impressions", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/datasource/{dataSource}/campaign/{campaignName}/sum", produces = MediaType.APPLICATION_JSON_VALUE)
     @Tag(name = SWAGGER_TAG_CLASSIC_API)
-    @Operation(summary = "List available roles for specified subscription")
-    public TotalClicks campaignImpressions(@PathVariable(value = "campaign") String campaign,
-                                      @RequestParam(value = "start") @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate start,
-                                      @RequestParam(value = "end") @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate end) {
-        return new TotalClicks(campaign, start, end, 2);
+    @Operation(summary = "List all campaigns from given datasource")
+    public Object totalsForCampaignAndDatasource(@PathVariable(value = "dataSource") String dataSource,
+                                         @PathVariable(value = "campaignName") String campaignName,
+                                         @RequestParam(value = "from", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate from,
+                                         @RequestParam(value = "to", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate to) {
+        return repository.sumOfClicksAndImpressionsForCampaignAndDataSourcePerDatasourceWithDateRange(
+                campaignName, dataSource, from, to);
     }
 }

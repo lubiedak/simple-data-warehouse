@@ -8,10 +8,6 @@ springdoc:
     path: /swagger-ui-custom.html
 
 spring:
-  datasource:
-    url: jdbc:postgresql://127.0.0.1/campaigns?createDatabaseIfNotExist=true
-    username: postgres
-    password: postgres
   jpa:
     properties:
       hibernate:
@@ -20,10 +16,6 @@ spring:
             non_contextual_creation: true
   flyway:
     enabled: true
-
-flyway:
-  user: postgres
-  password: postgres
-  schemas: campaigns
-  url: jdbc:postgresql://127.0.0.1/campaigns
-  locations: filesystem:resources/db/migration
+    user: postgres
+    password: postgres
+    url: jdbc:postgresql://db/postgres
