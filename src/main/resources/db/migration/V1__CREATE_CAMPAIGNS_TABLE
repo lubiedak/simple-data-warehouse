@@ -2,7 +2,7 @@ CREATE TABLE CAMPAIGNS
 (
     id          UUID,
     datasource  TEXT,
-    name        TEXT,
+    campaign        TEXT,
     daily       TIMESTAMP,
     clicks      INTEGER,
     impressions INTEGER
@@ -11,5 +11,5 @@ CREATE TABLE CAMPAIGNS
 ALTER TABLE CAMPAIGNS
     ADD CONSTRAINT pk_campaigns_id PRIMARY KEY (id);
 
-CREATE INDEX idx_campaign_name ON CAMPAIGNS("name") INCLUDE(name, datasource, daily clicks, impressions);
-CREATE INDEX idx_datasource ON CAMPAIGNS(datasource) INCLUDE(name, datasource, daily clicks, impressions);
+CREATE INDEX idx_campaign_name ON CAMPAIGNS(campaign) INCLUDE(campaign, datasource, daily clicks, impressions);
+CREATE INDEX idx_datasource ON CAMPAIGNS(datasource) INCLUDE(campaign, datasource, daily clicks, impressions);

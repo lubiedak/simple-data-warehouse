@@ -4,11 +4,30 @@ import com.lb.simpleWarehouse.db.CampaignsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import static com.lb.simpleWarehouse.api.QueryController.*;
+
 @Service
 @RequiredArgsConstructor
 public class CampaignsQueryService {
 
     private final CampaignsRepository repository;
+    @PersistenceContext
+    private final EntityManager em;
 
+    public Object query(List<Metric> metrics, List<Dimension> dimensions, Map<Filter, String> filters){
 
+        em.createNativeQuery("");
+        return null;
+    }
+
+    String prepareSelect(List<String> metrics, List<String> dimensions){
+        return null;
+    }
 }

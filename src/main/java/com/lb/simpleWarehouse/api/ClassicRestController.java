@@ -43,7 +43,7 @@ public class ClassicRestController {
     public Object findAllByCampaignName(@PathVariable(value = "campaignName") String campaignName,
                                                 @RequestParam(value = "start", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate start,
                                                 @RequestParam(value = "end", required = false) @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate end) {
-        return repository.findAllByName(campaignName);
+        return repository.findAllByCampaign(campaignName);
     }
 
     @GetMapping(value = "/campaign/{campaignName}/sum", produces = MediaType.APPLICATION_JSON_VALUE)

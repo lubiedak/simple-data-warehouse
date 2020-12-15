@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Builder
 @Table(name = "CAMPAIGNS",
-        indexes = {@Index(name = "idx_campaign", columnList = "name, datasource, daily, clicks, impressions")})
+        indexes = {@Index(name = "idx_campaign", columnList = "campaign, datasource, daily, clicks, impressions")})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Campaign {
@@ -21,7 +21,7 @@ public class Campaign {
     @GeneratedValue
     private long id;
     @Column
-    private String name;
+    private String campaign;
     @Column
     private String datasource;
     @Column
@@ -33,7 +33,7 @@ public class Campaign {
 
     public static Campaign from(CampaignInput input){
         return builder()
-                .name(input.getCampaign())
+                .campaign(input.getCampaign())
                 .datasource(input.getDatasource())
                 .daily(input.getDaily())
                 .clicks(input.getClicks())
