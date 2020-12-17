@@ -22,19 +22,22 @@ public interface CampaignsRepository extends JpaRepository<Campaign, Long> {
     List<Map<String, String>> sumOfClicksAndImpressionsForCampaignPerDatasource(
             @Param("campaign") String campaign);
 
-    @Query(S + SUM_CLICKS + SUM_IMPRESSIONS +CTR+ CAMPAIGN + DATASOURCE + FROM_WHERE + DATASOURCE_EQ + FROM + "AND " + TO + GROUP_BY)
+    @Query(S + SUM_CLICKS + SUM_IMPRESSIONS +CTR+ CAMPAIGN + DATASOURCE + FROM_WHERE + DATASOURCE_EQ +
+            "AND " + FROM + "AND " + TO + GROUP_BY)
     List<Map<String, String>> sumOfClicksAndImpressionsForDataSourcePerCampaignWithDateRange(
             @Param("datasource") String datasource,
             @Param("from") String from,
             @Param("to") String to);
 
-    @Query(S + SUM_CLICKS + SUM_IMPRESSIONS +CTR+ CAMPAIGN + DATASOURCE + FROM_WHERE + CAMPAIGN_EQ + FROM + "AND " + TO + GROUP_BY)
+    @Query(S + SUM_CLICKS + SUM_IMPRESSIONS +CTR+ CAMPAIGN + DATASOURCE + FROM_WHERE + CAMPAIGN_EQ +
+            "AND " + FROM + "AND " + TO + GROUP_BY)
     List<Map<String, String>> sumOfClicksAndImpressionsForCampaignPerDatasourceWithDateRange(
             @Param("campaign") String campaign,
             @Param("from") String from,
             @Param("to") String to);
 
-    @Query(S + SUM_CLICKS + SUM_IMPRESSIONS +CTR+ CAMPAIGN + DATASOURCE + FROM_WHERE + CAMPAIGN_EQ + "AND " + DATASOURCE_EQ + FROM + "AND " + TO + GROUP_BY)
+    @Query(S + SUM_CLICKS + SUM_IMPRESSIONS +CTR+ CAMPAIGN + DATASOURCE + FROM_WHERE + CAMPAIGN_EQ +
+            "AND " + DATASOURCE_EQ + "AND " + FROM + "AND " + TO + GROUP_BY)
     List<Map<String, String>> sumOfClicksAndImpressionsForCampaignAndDataSourcePerDatasourceWithDateRange(
             @Param("campaign") String campaign,
             @Param("datasource") String datasource,

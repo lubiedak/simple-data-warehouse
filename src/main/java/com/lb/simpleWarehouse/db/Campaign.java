@@ -12,15 +12,14 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Builder
-@Table(name = "CAMPAIGNS",
-        indexes = {@Index(name = "idx_campaign", columnList = "campaign, datasource, daily, clicks, impressions")})
+@Table(name = "CAMPAIGNS")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Campaign {
     @Id
     @GeneratedValue
     private long id;
-    @Column
+    @Column(name = "campaign")
     private String campaign;
     @Column
     private String datasource;

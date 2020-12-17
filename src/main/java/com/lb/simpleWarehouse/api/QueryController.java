@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,17 +29,7 @@ public class QueryController {
     public Object campaignClicks(@RequestParam(value = "metrics") List<Metric> metrics,
                                  @RequestParam(value = "dimensions", required = false) List<Dimension> dimensions,
                                  @RequestBody(required = false) Map<Filter,String> filters) {
-        return queryService.query(metrics, dimensions, filters);
-    }
-
-    @GetMapping(value = "/query/help", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Tag(name = SWAGGER_TAG_QUERY_CONTROLLER)
-    @Operation(summary = "List available params for query")
-    public Object queryHelp() {
-        var params = new HashMap<String, Object>();
-        params.put("metrics", Metric.values());
-        params.put("dimensions", Dimension.values());
-        params.put("filters(body)", Filter.values());
-        return params;
+        return queryService.query(metrics, dimensions == null ? Collections.emptyList() : dimensions,
+                filters == null ? Collections.emptyMap() : filters);
     }
 }

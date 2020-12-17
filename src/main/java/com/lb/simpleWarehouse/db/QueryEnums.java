@@ -7,13 +7,16 @@ import static com.lb.simpleWarehouse.db.CampaignsRepository.*;
 public interface QueryEnums {
 
     String S = "SELECT ";
-    String FROM_WHERE = "FROM Campaign c WHERE ";
+    String FROM_WHERE = " FROM Campaign c WHERE ";
+    String FROM_TABLE = " FROM Campaign c ";
+    String FROM_CAMPAIGNS_WHERE = " FROM Campaigns c WHERE ";
+    String FROM_CAMPAIGNS_TABLE = " FROM Campaigns c ";
     String GROUP_BY = "GROUP BY c.campaign, c.datasource";
     String SUM_CLICKS = "SUM(c.clicks) as clicks, ";
     String SUM_IMPRESSIONS = "SUM(c.impressions) as impressions, ";
     String CTR = "1.0*SUM(c.clicks)/SUM(c.impressions) as ctr, ";
     String CAMPAIGN = "c.campaign as campaign, ";
-    String DATASOURCE = "c.datasource as datasource, ";
+    String DATASOURCE = "c.datasource as datasource";
     String DAILY = "c.daily as daily, ";
     String CAMPAIGN_EQ = "c.campaign = :campaign ";
     String DATASOURCE_EQ = "c.datasource = :datasource ";
@@ -27,7 +30,7 @@ public interface QueryEnums {
         ctr(CTR);
 
         private final String query;
-        public final String q(){
+        public final String query(){
             return query;
         }
     }
@@ -35,11 +38,11 @@ public interface QueryEnums {
     @AllArgsConstructor
     enum Dimension{
         campaign(CAMPAIGN),
-        datasource(DATASOURCE),
+        datasource(DATASOURCE + ", "),
         daily(DAILY);
 
         private final String query;
-        public String q(){
+        public String query(){
             return query;
         }
     }
@@ -52,7 +55,7 @@ public interface QueryEnums {
         to(TO);
 
         private final String query;
-        public String q(){
+        public String query(){
             return query;
         }
     }
