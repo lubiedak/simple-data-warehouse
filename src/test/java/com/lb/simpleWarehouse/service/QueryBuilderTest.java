@@ -37,7 +37,7 @@ class QueryBuilderTest {
         filters.put(Filter.campaign, "Company");
         var actualQuery = queryBuilder.buildQuery(Arrays.asList(Metric.clicks), Arrays.asList(Dimension.campaign), filters);
         var expectedQuery = "SELECT SUM(c.clicks) as clicks, c.campaign as campaign FROM Campaigns c WHERE " +
-                "c.campaign = :campaign c.datasource = :datasource GROUP BY c.campaign";
+                "c.campaign = :campaign AND c.datasource = :datasource GROUP BY c.campaign";
         assertThat(actualQuery).isEqualTo(expectedQuery);
     }
 

@@ -51,8 +51,8 @@ public interface QueryEnums {
     enum Filter{
         campaign(CAMPAIGN_EQ),
         datasource(DATASOURCE_EQ),
-        from(FROM),
-        to(TO);
+        from("c.daily >= CAST(:from as DATE) "),
+        to("c.daily <= CAST(:to as DATE) ");
 
         private final String query;
         public String query(){
