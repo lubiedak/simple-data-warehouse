@@ -1,5 +1,6 @@
 package com.lb.simpleWarehouse.api;
 
+import com.lb.simpleWarehouse.db.QueryEnums.*;
 import com.lb.simpleWarehouse.service.CampaignsQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,15 +39,5 @@ public class QueryController {
         params.put("dimensions", Dimension.values());
         params.put("filters(body)", Filter.values());
         return params;
-    }
-
-    public enum Metric{
-        clicks, impressions, ctr;
-    }
-    public enum Dimension{
-        campaign, datasource, daily
-    }
-    public enum Filter{
-        campaign, datasource, from, to
     }
 }

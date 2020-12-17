@@ -1,6 +1,7 @@
 package com.lb.simpleWarehouse.service;
 
 import com.lb.simpleWarehouse.db.CampaignsRepository;
+import com.lb.simpleWarehouse.db.QueryEnums.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.lb.simpleWarehouse.api.QueryController.*;
+import static com.lb.simpleWarehouse.db.CampaignsRepository.*;
+import static com.lb.simpleWarehouse.db.QueryEnums.*;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +31,6 @@ public class CampaignsQueryService {
     }
 
     String prepareSelect(List<String> metrics, List<String> dimensions){
-        return null;
+        return S + "";
     }
 }
