@@ -23,21 +23,12 @@ public class CampaignsQueryService {
     @PersistenceContext
     private final EntityManager em;
 
-    public List<Object> query(List<Metric> metrics, List<Dimension> dimensions, Map<Filter, String> filters) {
-
+    public ArrayList query(List<Metric> metrics, List<Dimension> dimensions, Map<Filter, String> filters) {
         var query = em.createNativeQuery(queryBuilder.buildQuery(metrics, dimensions, filters));
         for (var e : filters.entrySet()) {
             query.setParameter(e.getKey().name(), e.getValue());
         }
-        /*
-        var query = em.createNativeQuery("SELECT SUM(c.clicks) as clicks, SUM(c.impressions) as impressions, " +
-                "1.0*SUM(c.clicks)/SUM(c.impressions) as ctr, c.campaign as campaign FROM Campaigns c " +
-                "WHERE c.daily >= CAST('2013-05-03' AS DATE) AND c.daily <= CAST('2020-05-03' AS DATE) GROUP BY c.campaign");
-                */
-
-
-        var rawResults = query.getResultList();
-        return prepareResults(rawResults, metrics, dimensions);
+        return prepareResults(query.getResultList(), metrics, dimensions);
     }
 
     ArrayList<Object> prepareResults(List<Object[]> results, List<Metric> metrics, List<Dimension> dimensions) {

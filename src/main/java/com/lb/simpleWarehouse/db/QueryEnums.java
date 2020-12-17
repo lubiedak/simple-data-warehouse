@@ -2,8 +2,6 @@ package com.lb.simpleWarehouse.db;
 
 import lombok.AllArgsConstructor;
 
-import static com.lb.simpleWarehouse.db.CampaignsRepository.*;
-
 public interface QueryEnums {
 
     String S = "SELECT ";
@@ -24,38 +22,41 @@ public interface QueryEnums {
     String TO = "c.daily <= :to ";
 
     @AllArgsConstructor
-    enum Metric{
+    enum Metric {
         clicks(SUM_CLICKS),
         impressions(SUM_IMPRESSIONS),
         ctr(CTR);
 
         private final String query;
-        public final String query(){
+
+        public final String query() {
             return query;
         }
     }
 
     @AllArgsConstructor
-    enum Dimension{
+    enum Dimension {
         campaign(CAMPAIGN),
         datasource(DATASOURCE + ", "),
         daily(DAILY);
 
         private final String query;
-        public String query(){
+
+        public String query() {
             return query;
         }
     }
 
     @AllArgsConstructor
-    enum Filter{
+    enum Filter {
         campaign(CAMPAIGN_EQ),
         datasource(DATASOURCE_EQ),
         from("c.daily >= CAST(:from as DATE) "),
         to("c.daily <= CAST(:to as DATE) ");
 
         private final String query;
-        public String query(){
+
+        public String query() {
             return query;
         }
     }

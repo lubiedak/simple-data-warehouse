@@ -30,7 +30,7 @@ public class Campaign {
     @Column
     private int impressions;
 
-    public static Campaign from(CampaignInput input){
+    public static Campaign from(CampaignInput input) {
         return builder()
                 .campaign(input.getCampaign())
                 .datasource(input.getDatasource())

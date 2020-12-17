@@ -17,7 +17,7 @@ public class CampaignsDataLoader {
     private final CampaignsRepository repository;
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadObjects(){
+    public void loadObjects() {
         if (repository.count() == 0) {
             log.info("Loading the data from CSV file");
             var loader = new CsvLoader();

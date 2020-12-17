@@ -1,6 +1,8 @@
 package com.lb.simpleWarehouse.api;
 
-import com.lb.simpleWarehouse.db.QueryEnums.*;
+import com.lb.simpleWarehouse.db.QueryEnums.Dimension;
+import com.lb.simpleWarehouse.db.QueryEnums.Filter;
+import com.lb.simpleWarehouse.db.QueryEnums.Metric;
 import com.lb.simpleWarehouse.service.CampaignsQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,10 +26,10 @@ public class QueryController {
 
     @GetMapping(value = "/query", produces = MediaType.APPLICATION_JSON_VALUE)
     @Tag(name = SWAGGER_TAG_QUERY_CONTROLLER)
-    @Operation(summary = "List available roles for specified subscription")
+    @Operation(summary = "Query API with hint if Bad Request happen")
     public Object campaignClicks(@RequestParam(value = "metrics") List<Metric> metrics,
                                  @RequestParam(value = "dimensions", required = false) List<Dimension> dimensions,
-                                 @RequestBody(required = false) Map<Filter,String> filters) {
+                                 @RequestBody(required = false) Map<Filter, String> filters) {
         return queryService.query(metrics, dimensions == null ? Collections.emptyList() : dimensions,
                 filters == null ? Collections.emptyMap() : filters);
     }
